@@ -4,22 +4,20 @@ import './panier.css'
 
 class Panier extends React.Component {
     render() {
-        console.log(this.props.article[0].nom)
         return (
             <Fragment>
-                <div className="container">
-                    <div className="box border border-bottom-dark ">
-                        <div className="caption">
-                            <span> nom : {this.props.article.nom}  </span> 
-                        </div>
-                        <Button variant="danger" onClick={this.props.clique}>Supprimer</Button>
+            <div className="col-md-3">
+                
+                <div className="box border border-bottom-dark ">
+                    <img src={this.props.article.img} className ="w-100" alt=""/>
+                    <div className="caption">
+                        <span> {this.props.article.nom}  </span> <br/>
+                        <span> {this.props.article.prix} € </span> 
                     </div>
-
-
-                        
+                    <Button variant="danger" onClick={this.props.revendre}>Supprimer</Button>
                 </div>
 
-                
+            </div>                
             </Fragment>
         );
     }

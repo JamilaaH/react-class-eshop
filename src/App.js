@@ -23,13 +23,20 @@ class App extends React.Component {
     let {article, panier, argent}  = this.state
     argent = argent - article[a].prix
     article[a].stock--
-    panier.push([article[a]])
+    panier.push(article[a])
     this.setState({
       article, panier, argent
     })
-
   }
 
+  revendre = (a) => {
+    let {article, panier, argent} = this.state
+    argent = argent + panier[a].prix
+    article[article.indexOf(panier[a])].stock++
+    panier.splice(a,1);
+
+    this.setState({ argent, panier, article})
+  }
 
   render() {
     let tab = this.state.article 
@@ -47,10 +54,13 @@ class App extends React.Component {
                 <Article key={i} titre = {art.nom} prix = {art.prix} stock = {art.stock} image = {art.img} clique = {()=> this.achat(i)} monnaie = {this.state.argent} />
               )
             })}
+            <div className="col-12 mt-3">
+            <h5>Votre panier : </h5>
+            </div>
 
-            { this.state.panier.map ((el,j) => {
+            { this.state.panier.map ((art,i) => {
               return (
-                <Panier key = {j} article = {el} />
+                <Panier key = {i} article = {art} panier = {this.state.panier} revendre = {() => this.revendre(i)} />
               )
             } )}
           </div>
